@@ -1,9 +1,13 @@
 # Commands
 
+## General
+
 | Commands   | Description                      | e.g        |
 | ---------- | -------------------------------- | ---------- |
 | $hello     | Say hello to the bot             | $hello     |
 | $invite-me | Generate invite link for the bot | $invite-me |
+| $help / $? | List commands and readme link    | $help      |
+| $dev       | View developer information       | $dev       |
 
 ## NIM-Finder
 
