@@ -1,6 +1,7 @@
 import discord
 from secret import TOKEN
 import nim_api
+from keep_alive import keep_alive
 
 client = discord.Client()
 
@@ -41,4 +42,5 @@ async def on_message(message):
         nim = nim_api.find_nim(name)
         await message.channel.send(nim)
 
+keep_alive()
 client.run(TOKEN)
