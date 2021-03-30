@@ -1,6 +1,9 @@
 import discord
+import asyncio
 from secret import TOKEN
 import nim_api
+import gpa_api
+import jokes_api
 from keep_alive import keep_alive
 
 client = discord.Client()
@@ -41,6 +44,27 @@ async def on_message(message):
         name = message.content.split("$find-nim", 1)[1].strip()
         nim = nim_api.find_nim(name)
         await message.channel.send(nim)
+
+    # GPA CALC
+    if message.content.startswith("$gpa-calc"):
+        command = message.content.split("$gpa-calc", 1)[
+            1]
+        if "initial" in command:
+            initial_gpa, total_credit = gpa_api.parse_command(command)
+            gpa = gpa_api.calc_gpa_string(
+                command, inital_gpa=initial_gpa, total_credit=total_credit)
+        else:
+            gpa = gpa_api.calc_gpa_string(command)
+
+        await message.channel.send(gpa)
+
+    # JOKES GENERATOR
+    if message.content.startswith("$jokes") or message.content.startswith("$receh"):
+        question, answer = jokes_api.get_random_joke()
+        await message.channel.send(question)
+        await asyncio.sleep(2)
+        await message.channel.send(answer)
+
 
 keep_alive()
 client.run(TOKEN)
