@@ -22,7 +22,7 @@ def calc_gpa_string(string: str, inital_gpa=0, total_credit=0):
     """
         string (str): "4A 3B 2C 5BC 2AB 2E 2AC"
     """
-
+    string = string.upper()
     regex_match = re.compile(r'(\dAB|\dBC|\d[A-E]\W)')
     total = 0
     count_total = 0
