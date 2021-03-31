@@ -17,13 +17,13 @@ def parse_command(command: str):
     initial_gpa, total_credit = re.findall(regex_match, arguments)
     return float(initial_gpa), float(total_credit)
 
-
+# TODO : Make test case for Regex to prevent further bug
 def calc_gpa_string(string: str, inital_gpa=0, total_credit=0):
     """
         string (str): "4A 3B 2C 5BC 2AB 2E 2AC"
     """
     string = string.upper()
-    regex_match = re.compile(r'(\dAB|\dBC|\d[A-E]\W)')
+    regex_match = re.compile(r'(\dAB|\dBC|\d[A-E])')
     total = 0
     count_total = 0
     for gpa_string in re.findall(regex_match, string):
