@@ -26,11 +26,19 @@ def calc_gpa_string(string: str, inital_gpa=0, total_credit=0):
     regex_match = re.compile(r'(\dAB|\dBC|\d[A-E])')
     total = 0
     count_total = 0
-    for gpa_string in re.findall(regex_match, string):
+    matches = re.findall(regex_match, string)
+    if len(matches) == 0:
+        return "Please give the correct format {credit}{grade}"
+    for gpa_string in matches:
         grade = gpa_string.strip()[1:]
         count = float(gpa_string.strip()[0])
+        if count <= 0 :
+            return "Please give a valid credit > 0"
         count_total += count
         total += count*gpa_map[grade]
+
+    if total_credit == 0:
+        return "Please give a valid credit > 0"
 
     gpa = (total+inital_gpa*total_credit)/(count_total+total_credit)
 
