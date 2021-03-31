@@ -19,6 +19,12 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    if str(message.author) == "IBPME#4962":
+        if message.content.startswith('$reset'):
+            def is_me(m):
+                return m.author == client.user
+            await message.channel.purge(limit=100, check=is_me)
+
     # GENERAL COMMANDS
     if message.content.startswith('$hello'):
         await message.channel.send('Hello {}!'.format(message.author.name))
