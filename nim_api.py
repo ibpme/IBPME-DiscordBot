@@ -1,4 +1,5 @@
 import json
+from rapidfuzz import fuzz
 
 with open("nim_to_name.json", 'r') as file:
     nim_to_name = json.load(file)
@@ -13,21 +14,25 @@ def find_name(nim):
 
 
 def find_nim(name):
-    name_to_nim = dict()
-    iter_nim_to_name = list(nim_to_name.items())
-    while bool(iter_nim_to_name):
-        x, y = iter_nim_to_name.pop()
-        if y in name_to_nim:
-            name_to_nim[y] = [x, name_to_nim[y]]
-            continue
-        name_to_nim[y] = x
-    try:
-        nim = name_to_nim[name]
-    except KeyError:
-        return "No nim found for {}! Make sure to type the correct full name".format(name)
-    if type(nim) == list:
-        return "**TPB**: {}\n**Jurusan**: {}".format(nim[0], nim[1])
-    return nim
+    with open("nim.json", 'r') as file:
+        nim_list = json.load(file)
+    
+    candidates = []
+    for element in nim_list:
+        if fuzz.partial_ratio(name.lower(), element['name'].lower(), score_cutoff=90):
+            nim = [element['tpb']]
+            try:
+                nim.append(element['jurursan'])
+            except:
+                nim.append('-')
+
+            candidates.append((element['name'], nim))
+    if len(candidates) == 0 :
+        return "No nim found for query {}!".format(name)
+    output_string = ''
+    for name, nim in candidates:
+        output_string += f'**Name**: {name}\n**TPB**: {nim[0]}\n**Jurusan**: {nim[1]} \n\n'
+    return output_string
 
 
 def make_nim_to_name_hash():
