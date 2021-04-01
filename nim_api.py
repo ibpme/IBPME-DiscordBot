@@ -21,7 +21,7 @@ def find_nim(name):
         if fuzz.partial_ratio(name.lower(), element['name'].lower(), score_cutoff=90):
             nim = [element['tpb']]
             try:
-                nim.append(element['jurursan'])
+                nim.append(element['jurusan'])
             except:
                 nim.append('-')
 
