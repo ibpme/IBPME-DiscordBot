@@ -1,11 +1,10 @@
 import json
 from rapidfuzz import fuzz
 
-with open("nim_to_name.json", 'r') as file:
-    nim_to_name = json.load(file)
-
 
 def find_name(nim):
+    with open("nim_to_name.json", 'r') as file:
+        nim_to_name = json.load(file)
     try:
         name = nim_to_name[nim]
     except KeyError:
@@ -16,7 +15,7 @@ def find_name(nim):
 def find_nim(name):
     with open("nim.json", 'r') as file:
         nim_list = json.load(file)
-    
+
     candidates = []
     for element in nim_list:
         if fuzz.partial_ratio(name.lower(), element['name'].lower(), score_cutoff=90):
@@ -27,7 +26,7 @@ def find_nim(name):
                 nim.append('-')
 
             candidates.append((element['name'], nim))
-    if len(candidates) == 0 :
+    if len(candidates) == 0:
         return "No nim found for query {}!".format(name)
     output_string = ''
     for name, nim in candidates:
