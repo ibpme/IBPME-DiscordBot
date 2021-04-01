@@ -53,15 +53,8 @@ async def on_message(message):
 
     # GPA CALC
     if message.content.startswith("$gpa-calc"):
-        command = message.content.split("$gpa-calc", 1)[
-            1]
-        if "initial" in command:
-            initial_gpa, total_credit = gpa_api.parse_command(command)
-            gpa = gpa_api.calc_gpa_string(
-                command, inital_gpa=initial_gpa, total_credit=total_credit)
-        else:
-            gpa = gpa_api.calc_gpa_string(command)
-
+        command = message.content.split("$gpa-calc", 1)[1]
+        gpa = gpa_api.get_gpa(command)
         await message.channel.send(gpa)
 
     # JOKES GENERATOR
