@@ -36,13 +36,13 @@ def calc_gpa_string(string: str, inital_gpa=0, total_credit=0):
         return "Please give the correct format {credit}{grade}"
     for gpa_string in matches:
         grade = gpa_string.strip()[1:]
-        count = float(gpa_string.strip()[0])
+        count = int(gpa_string.strip()[0])
         if count <= 0:
             return "Please give a valid credit > 0"
         count_total += count
         total += count*gpa_map[grade]
 
-    if total_credit == 0:
+    if total == 0:
         return "Please give a valid credit > 0"
 
     gpa = (total+inital_gpa*total_credit)/(count_total+total_credit)
