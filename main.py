@@ -4,7 +4,7 @@ import os
 try:
     from secret import TOKEN
 except:
-    TOKEN = os.getenv("TOKEN")
+    TOKEN = os.environ['TOKEN']
 import nim_api
 import gpa_api
 import jokes_api
