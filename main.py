@@ -1,6 +1,10 @@
 import discord
 import asyncio
-from secret import TOKEN
+import os
+try:
+    from secret import TOKEN
+except:
+    TOKEN = os.getenv("TOKEN")
 import nim_api
 import gpa_api
 import jokes_api
